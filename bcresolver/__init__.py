@@ -15,25 +15,25 @@ from namecoin import NamecoinClient
 # Setup Logging
 log = logging.getLogger()
 
-class NamecoinValueException(BaseException):
+class NamecoinValueException(Exception):
     pass
 
-class NoNameserverException(BaseException):
+class NoNameserverException(Exception):
     pass
 
-class InvalidNameserverException(BaseException):
+class InvalidNameserverException(Exception):
     pass
 
-class NoDSRecordException(BaseException):
+class NoDSRecordException(Exception):
     pass
 
-class InsecureResultException(BaseException):
+class InsecureResultException(Exception):
     pass
 
-class BogusResultException(BaseException):
+class BogusResultException(Exception):
     pass
 
-class EmptyResultException(BaseException):
+class EmptyResultException(Exception):
     pass
 
 class NamecoinResolver:
