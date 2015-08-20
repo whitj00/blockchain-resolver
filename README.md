@@ -1,3 +1,5 @@
+![PyPI](https://img.shields.io/pypi/dm/bcresolver.svg)
+
 # Blockchain Resolver
 
 Netki Blockchain (Namecoin) Resolver Library
