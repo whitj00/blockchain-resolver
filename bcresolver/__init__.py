@@ -190,6 +190,8 @@ forward-zone:
         else:
             ds_record += ' %s' % base64.b64decode(nc_value['ds'][0][3]).encode('hex').upper()
 
+        if qtype in ['DS']:
+            return ds_record
         ds_ta = '%s IN DS %s' % (sld, ds_record)
 
         ns_ctx = ub_ctx()
@@ -249,10 +251,12 @@ forward-zone:
                     # Get appropriate data by query type
                     if qtype in ['A','AAAA']:
                         lookup_value = result.data.as_address_list()
-                    elif qtype in ['CNAME','TXT']:
+                    elif qtype in ['CNAME','TXT','PTR','SPF','CAA','NAPTR','TLSA','SRV']:
                         lookup_value = result.data.as_domain_list()
                     elif qtype in ['MX']:
                         lookup_value = result.data.as_mx_list()
+                    elif qtype in ['NS']:
+                        lookup_value = nc_value.get('ns', [])
                     else:
                         last_error = NotImplementedError('Unsupported DNS Query Type: %s' % qtype)
 

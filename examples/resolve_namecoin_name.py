@@ -28,6 +28,21 @@ if __name__ == '__main__':
         walletname_bit_result = nc_resolver.resolve('_btc._wallet.sample.walletname.bit', 'TXT')
         print('Resolved _btc._wallet.sample.walletname.bit (TXT): %s' % walletname_bit_result)
 
+        walletname_ns_result = nc_resolver.resolve('pythonpro.bit', 'NS')
+        print('Resolved pythonpro.bit (NS): %s' % walletname_ns_result)
+
+        walletname_ptr_result = nc_resolver.resolve('10.10.10.10.pythonpro.bit', 'PTR')
+        print('Resolved 10.10.10.10.pythonpro.bit (PTR): %s' % walletname_ptr_result)
+
+        walletname_naptr_result = nc_resolver.resolve('pythonpro.bit', 'NAPTR')
+        print('Resolved pythonpro.bit (TXT): %s' % walletname_naptr_result)
+
+        walletname_spf_result = nc_resolver.resolve('pythonpro.bit', 'SPF')
+        print('Resolved pythonpro.bit (SPF): %s' % walletname_spf_result)
+
+        walletname_caa_result = nc_resolver.resolve('pythonpro.bit', 'CAA')
+        print('Resolved pythonpro.bit (CAA): %s' % walletname_caa_result)
+
     except Exception as e:
         print('Valid DNS Entries Should Not Throw an Exception')
 
