@@ -35,13 +35,16 @@ if __name__ == '__main__':
         print('Resolved 10.10.10.10.pythonpro.bit (PTR): %s' % walletname_ptr_result)
 
         walletname_naptr_result = nc_resolver.resolve('pythonpro.bit', 'NAPTR')
-        print('Resolved pythonpro.bit (TXT): %s' % walletname_naptr_result)
+        print('Resolved pythonpro.bit (NAPTR): %s' % walletname_naptr_result)
 
         walletname_spf_result = nc_resolver.resolve('pythonpro.bit', 'SPF')
         print('Resolved pythonpro.bit (SPF): %s' % walletname_spf_result)
 
         walletname_caa_result = nc_resolver.resolve('pythonpro.bit', 'CAA')
         print('Resolved pythonpro.bit (CAA): %s' % walletname_caa_result)
+
+        walletname_tlsa_result = nc_resolver.resolve('_443._tcp.pythonpro.bit', 'TLSA')
+        print('Resolved _443._tcp.pythonpro.bit (TLSA): %s' % walletname_tlsa_result)
 
     except Exception as e:
         print('Valid DNS Entries Should Not Throw an Exception')

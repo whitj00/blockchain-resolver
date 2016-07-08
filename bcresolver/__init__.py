@@ -133,6 +133,11 @@ forward-zone:
             log.error('Unable to Remove Temp Unbound Config File: %s' % str(e))
             return False
 
+    @staticmethod
+    def tlsa_convert(record):
+        byte_record = bytearray(record)
+        return str(byte_record[0]) + " " + str(byte_record[1]) + " " + str(byte_record[2]) + " " + str(byte_record[3:]).encode('hex').upper()
+
     def resolve(self, name, qtype):
         '''
 
@@ -249,14 +254,17 @@ forward-zone:
 
                 else:
                     # Get appropriate data by query type
+                    # TODO: Add SOA Record Processing
                     if qtype in ['A','AAAA']:
                         lookup_value = result.data.as_address_list()
-                    elif qtype in ['CNAME','TXT','PTR','SPF','CAA','NAPTR','TLSA','SRV']:
+                    elif qtype in ['CNAME','TXT','PTR','SPF','CAA','NAPTR']:
                         lookup_value = result.data.as_domain_list()
                     elif qtype in ['MX']:
                         lookup_value = result.data.as_mx_list()
                     elif qtype in ['NS']:
                         lookup_value = nc_value.get('ns', [])
+                    elif qtype in ['TLSA']:
+                        lookup_value = [NamecoinResolver.tlsa_convert(result.rawdata[0])]
                     else:
                         last_error = NotImplementedError('Unsupported DNS Query Type: %s' % qtype)
 
