@@ -46,6 +46,9 @@ if __name__ == '__main__':
         walletname_tlsa_result = nc_resolver.resolve('_443._tcp.pythonpro.bit', 'TLSA')
         print('Resolved _443._tcp.pythonpro.bit (TLSA): %s' % walletname_tlsa_result)
 
+        walletname_ds_result = nc_resolver.resolve('pythonpro.bit', 'DS')
+        print('Resolved pythonpro.bit (DS): %s' % walletname_ds_result)
+
     except Exception as e:
         print('Valid DNS Entries Should Not Throw an Exception')
 
