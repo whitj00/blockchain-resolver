@@ -185,6 +185,248 @@ class TestResolve(TestCase):
         self.assertEqual('temp_config_file', self.wallet_ctx.config.call_args[0][0])
         self.assertEqual('temp_config_file', self.mockDeleteUnboundConfig.call_args[0][0])
 
+    def test_go_right_ptr_rr(self):
+
+        ret_val = self.nc_resolver.resolve('10.10.10.10.pythonpro.bit', 'PTR')
+
+        self.assertEqual('btc', ret_val)
+        self.assertEqual(1, self.mockNamecoinClient.call_count)
+        self.assertEqual(1, self.mockNamecoinClient.return_value.get_domain.call_count)
+        self.assertEqual('127.0.0.1', self.mockNamecoinClient.call_args[1]['host'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['password'])
+        self.assertEqual(8336, self.mockNamecoinClient.call_args[1]['port'])
+        self.assertEqual(60, self.mockNamecoinClient.call_args[1]['timeout'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['user'])
+        self.assertEqual(2, self.mockUnboundContext.call_count)
+        self.assertEqual(1, self.mockBuildUnboundConfig.call_count)
+        self.assertEqual(1, self.mockDeleteUnboundConfig.call_count)
+        self.assertEqual(1, self.result_obj.data.as_address_list.call_count)
+        self.assertEqual(1, self.result_obj2.data.as_domain_list.call_count)
+
+        self.assertEqual(1, self.ns_ctx.resolve.call_count)
+        self.assertEqual(1, self.ns_ctx.resolvconf.call_count)
+        self.assertEqual(1, self.ns_ctx.add_ta_file.call_count)
+        self.assertFalse(self.ns_ctx.add_ta.called)
+
+        self.assertEqual('pythonpro.bit.', self.mockBuildUnboundConfig.call_args[0][0])
+        self.assertEqual('127.0.0.1', self.mockBuildUnboundConfig.call_args[0][1])
+
+        self.assertEqual(1, self.wallet_ctx.resolve.call_count)
+        self.assertFalse(self.wallet_ctx.resolvconf.called)
+        self.assertEqual(1, self.wallet_ctx.config.call_count)
+        self.assertEqual(1, self.wallet_ctx.add_ta.call_count)
+        self.assertFalse(self.wallet_ctx.add_ta_file.called)
+
+        self.assertEqual('pythonpro.bit. IN DS 40039 8 2 3596EEB7B8AA57108FD081825FB2750C0FC3ADBAE4149CC430BD4F7AD0315734', self.wallet_ctx.add_ta.call_args[0][0])
+
+        self.assertEqual('temp_config_file', self.wallet_ctx.config.call_args[0][0])
+        self.assertEqual('temp_config_file', self.mockDeleteUnboundConfig.call_args[0][0])
+
+    def test_go_right_naptr_rr(self):
+
+        ret_val = self.nc_resolver.resolve('pythonpro.bit', 'NAPTR')
+
+        self.assertEqual('btc', ret_val)
+        self.assertEqual(1, self.mockNamecoinClient.call_count)
+        self.assertEqual(1, self.mockNamecoinClient.return_value.get_domain.call_count)
+        self.assertEqual('127.0.0.1', self.mockNamecoinClient.call_args[1]['host'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['password'])
+        self.assertEqual(8336, self.mockNamecoinClient.call_args[1]['port'])
+        self.assertEqual(60, self.mockNamecoinClient.call_args[1]['timeout'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['user'])
+        self.assertEqual(2, self.mockUnboundContext.call_count)
+        self.assertEqual(1, self.mockBuildUnboundConfig.call_count)
+        self.assertEqual(1, self.mockDeleteUnboundConfig.call_count)
+        self.assertEqual(1, self.result_obj.data.as_address_list.call_count)
+        self.assertEqual(1, self.result_obj2.data.as_domain_list.call_count)
+
+        self.assertEqual(1, self.ns_ctx.resolve.call_count)
+        self.assertEqual(1, self.ns_ctx.resolvconf.call_count)
+        self.assertEqual(1, self.ns_ctx.add_ta_file.call_count)
+        self.assertFalse(self.ns_ctx.add_ta.called)
+
+        self.assertEqual('pythonpro.bit.', self.mockBuildUnboundConfig.call_args[0][0])
+        self.assertEqual('127.0.0.1', self.mockBuildUnboundConfig.call_args[0][1])
+
+        self.assertEqual(1, self.wallet_ctx.resolve.call_count)
+        self.assertFalse(self.wallet_ctx.resolvconf.called)
+        self.assertEqual(1, self.wallet_ctx.config.call_count)
+        self.assertEqual(1, self.wallet_ctx.add_ta.call_count)
+        self.assertFalse(self.wallet_ctx.add_ta_file.called)
+
+        self.assertEqual('pythonpro.bit. IN DS 40039 8 2 3596EEB7B8AA57108FD081825FB2750C0FC3ADBAE4149CC430BD4F7AD0315734', self.wallet_ctx.add_ta.call_args[0][0])
+
+        self.assertEqual('temp_config_file', self.wallet_ctx.config.call_args[0][0])
+        self.assertEqual('temp_config_file', self.mockDeleteUnboundConfig.call_args[0][0])
+
+    def test_go_right_spf_rr(self):
+
+        ret_val = self.nc_resolver.resolve('pythonpro.bit', 'SPF')
+
+        self.assertEqual('btc', ret_val)
+        self.assertEqual(1, self.mockNamecoinClient.call_count)
+        self.assertEqual(1, self.mockNamecoinClient.return_value.get_domain.call_count)
+        self.assertEqual('127.0.0.1', self.mockNamecoinClient.call_args[1]['host'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['password'])
+        self.assertEqual(8336, self.mockNamecoinClient.call_args[1]['port'])
+        self.assertEqual(60, self.mockNamecoinClient.call_args[1]['timeout'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['user'])
+        self.assertEqual(2, self.mockUnboundContext.call_count)
+        self.assertEqual(1, self.mockBuildUnboundConfig.call_count)
+        self.assertEqual(1, self.mockDeleteUnboundConfig.call_count)
+        self.assertEqual(1, self.result_obj.data.as_address_list.call_count)
+        self.assertEqual(1, self.result_obj2.data.as_domain_list.call_count)
+
+        self.assertEqual(1, self.ns_ctx.resolve.call_count)
+        self.assertEqual(1, self.ns_ctx.resolvconf.call_count)
+        self.assertEqual(1, self.ns_ctx.add_ta_file.call_count)
+        self.assertFalse(self.ns_ctx.add_ta.called)
+
+        self.assertEqual('pythonpro.bit.', self.mockBuildUnboundConfig.call_args[0][0])
+        self.assertEqual('127.0.0.1', self.mockBuildUnboundConfig.call_args[0][1])
+
+        self.assertEqual(1, self.wallet_ctx.resolve.call_count)
+        self.assertFalse(self.wallet_ctx.resolvconf.called)
+        self.assertEqual(1, self.wallet_ctx.config.call_count)
+        self.assertEqual(1, self.wallet_ctx.add_ta.call_count)
+        self.assertFalse(self.wallet_ctx.add_ta_file.called)
+
+        self.assertEqual('pythonpro.bit. IN DS 40039 8 2 3596EEB7B8AA57108FD081825FB2750C0FC3ADBAE4149CC430BD4F7AD0315734', self.wallet_ctx.add_ta.call_args[0][0])
+
+        self.assertEqual('temp_config_file', self.wallet_ctx.config.call_args[0][0])
+        self.assertEqual('temp_config_file', self.mockDeleteUnboundConfig.call_args[0][0])
+
+    def test_go_right_caa_rr(self):
+
+        ret_val = self.nc_resolver.resolve('pythonpro.bit', 'CAA')
+
+        self.assertEqual('btc', ret_val)
+        self.assertEqual(1, self.mockNamecoinClient.call_count)
+        self.assertEqual(1, self.mockNamecoinClient.return_value.get_domain.call_count)
+        self.assertEqual('127.0.0.1', self.mockNamecoinClient.call_args[1]['host'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['password'])
+        self.assertEqual(8336, self.mockNamecoinClient.call_args[1]['port'])
+        self.assertEqual(60, self.mockNamecoinClient.call_args[1]['timeout'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['user'])
+        self.assertEqual(2, self.mockUnboundContext.call_count)
+        self.assertEqual(1, self.mockBuildUnboundConfig.call_count)
+        self.assertEqual(1, self.mockDeleteUnboundConfig.call_count)
+        self.assertEqual(1, self.result_obj.data.as_address_list.call_count)
+        self.assertEqual(1, self.result_obj2.data.as_domain_list.call_count)
+
+        self.assertEqual(1, self.ns_ctx.resolve.call_count)
+        self.assertEqual(1, self.ns_ctx.resolvconf.call_count)
+        self.assertEqual(1, self.ns_ctx.add_ta_file.call_count)
+        self.assertFalse(self.ns_ctx.add_ta.called)
+
+        self.assertEqual('pythonpro.bit.', self.mockBuildUnboundConfig.call_args[0][0])
+        self.assertEqual('127.0.0.1', self.mockBuildUnboundConfig.call_args[0][1])
+
+        self.assertEqual(1, self.wallet_ctx.resolve.call_count)
+        self.assertFalse(self.wallet_ctx.resolvconf.called)
+        self.assertEqual(1, self.wallet_ctx.config.call_count)
+        self.assertEqual(1, self.wallet_ctx.add_ta.call_count)
+        self.assertFalse(self.wallet_ctx.add_ta_file.called)
+
+        self.assertEqual('pythonpro.bit. IN DS 40039 8 2 3596EEB7B8AA57108FD081825FB2750C0FC3ADBAE4149CC430BD4F7AD0315734', self.wallet_ctx.add_ta.call_args[0][0])
+
+        self.assertEqual('temp_config_file', self.wallet_ctx.config.call_args[0][0])
+        self.assertEqual('temp_config_file', self.mockDeleteUnboundConfig.call_args[0][0])
+
+    def test_go_right_ns_rr(self):
+
+        ret_val = self.nc_resolver.resolve('pythonpro.bit', 'NS')
+
+        self.assertEqual('pdns83.ultradns.org', ret_val)
+        self.assertEqual(1, self.mockNamecoinClient.call_count)
+        self.assertEqual(1, self.mockNamecoinClient.return_value.get_domain.call_count)
+        self.assertEqual('127.0.0.1', self.mockNamecoinClient.call_args[1]['host'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['password'])
+        self.assertEqual(8336, self.mockNamecoinClient.call_args[1]['port'])
+        self.assertEqual(60, self.mockNamecoinClient.call_args[1]['timeout'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['user'])
+        self.assertEqual(2, self.mockUnboundContext.call_count)
+        self.assertEqual(1, self.mockBuildUnboundConfig.call_count)
+        self.assertEqual(1, self.mockDeleteUnboundConfig.call_count)
+        self.assertEqual(1, self.result_obj.data.as_address_list.call_count)
+
+        self.assertEqual(1, self.ns_ctx.resolve.call_count)
+        self.assertEqual(1, self.ns_ctx.resolvconf.call_count)
+        self.assertEqual(1, self.ns_ctx.add_ta_file.call_count)
+        self.assertFalse(self.ns_ctx.add_ta.called)
+
+        self.assertEqual('pythonpro.bit.', self.mockBuildUnboundConfig.call_args[0][0])
+        self.assertEqual('127.0.0.1', self.mockBuildUnboundConfig.call_args[0][1])
+
+        self.assertEqual(1, self.wallet_ctx.resolve.call_count)
+        self.assertFalse(self.wallet_ctx.resolvconf.called)
+        self.assertEqual(1, self.wallet_ctx.config.call_count)
+        self.assertEqual(1, self.wallet_ctx.add_ta.call_count)
+        self.assertFalse(self.wallet_ctx.add_ta_file.called)
+
+        self.assertEqual('pythonpro.bit. IN DS 40039 8 2 3596EEB7B8AA57108FD081825FB2750C0FC3ADBAE4149CC430BD4F7AD0315734', self.wallet_ctx.add_ta.call_args[0][0])
+
+        self.assertEqual('temp_config_file', self.wallet_ctx.config.call_args[0][0])
+        self.assertEqual('temp_config_file', self.mockDeleteUnboundConfig.call_args[0][0])
+
+    def test_go_right_ds_rr(self):
+
+        ret_val = self.nc_resolver.resolve('pythonpro.bit', 'DS')
+
+        self.assertEqual('40039 8 2 3596EEB7B8AA57108FD081825FB2750C0FC3ADBAE4149CC430BD4F7AD0315734', ret_val)
+        self.assertEqual(1, self.mockNamecoinClient.call_count)
+        self.assertEqual(1, self.mockNamecoinClient.return_value.get_domain.call_count)
+        self.assertEqual('127.0.0.1', self.mockNamecoinClient.call_args[1]['host'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['password'])
+        self.assertEqual(8336, self.mockNamecoinClient.call_args[1]['port'])
+        self.assertEqual(60, self.mockNamecoinClient.call_args[1]['timeout'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['user'])
+        self.assertEqual(0, self.mockUnboundContext.call_count)
+        self.assertEqual(0, self.mockBuildUnboundConfig.call_count)
+        self.assertEqual(0, self.mockDeleteUnboundConfig.call_count)
+        self.assertEqual(0, self.result_obj.data.as_address_list.call_count)
+
+        self.assertEqual(0, self.ns_ctx.resolve.call_count)
+        self.assertEqual(0, self.ns_ctx.resolvconf.call_count)
+        self.assertEqual(0, self.ns_ctx.add_ta_file.call_count)
+        self.assertFalse(self.ns_ctx.add_ta.called)
+
+        self.assertEqual(0, self.wallet_ctx.resolve.call_count)
+        self.assertFalse(self.wallet_ctx.resolvconf.called)
+        self.assertEqual(0, self.wallet_ctx.config.call_count)
+        self.assertEqual(0, self.wallet_ctx.add_ta.call_count)
+        self.assertFalse(self.wallet_ctx.add_ta_file.called)
+
+    def test_go_right_tlsa_rr(self):
+
+        self.result_obj2.rawdata = ['\x03\x00\x01\xd7\x99-\xf2\xbb\xben\xb9\x8c|\xeai\x02\x9b\nIY_Jz\x97\xfc\x88\x9f\x92\xb9he!\xf1v\x85']
+
+        ret_val = self.nc_resolver.resolve('_443._tcp.pythonpro.bit', 'TLSA')
+
+        self.assertEqual('3 0 1 D7992DF2BBBE6EB98C7CEA69029B0A49595F4A7A97FC889F92B9686521F17685', ret_val)
+        self.assertEqual(1, self.mockNamecoinClient.call_count)
+        self.assertEqual(1, self.mockNamecoinClient.return_value.get_domain.call_count)
+        self.assertEqual('127.0.0.1', self.mockNamecoinClient.call_args[1]['host'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['password'])
+        self.assertEqual(8336, self.mockNamecoinClient.call_args[1]['port'])
+        self.assertEqual(60, self.mockNamecoinClient.call_args[1]['timeout'])
+        self.assertEqual('', self.mockNamecoinClient.call_args[1]['user'])
+        self.assertEqual(2, self.mockUnboundContext.call_count)
+        self.assertEqual(1, self.mockBuildUnboundConfig.call_count)
+        self.assertEqual(1, self.mockDeleteUnboundConfig.call_count)
+        self.assertEqual(1, self.result_obj.data.as_address_list.call_count)
+
+        self.assertEqual(1, self.ns_ctx.resolve.call_count)
+        self.assertEqual(1, self.ns_ctx.resolvconf.call_count)
+        self.assertEqual(1, self.ns_ctx.add_ta_file.call_count)
+        self.assertFalse(self.ns_ctx.add_ta.called)
+
+        self.assertEqual(1, self.wallet_ctx.resolve.call_count)
+        self.assertFalse(self.wallet_ctx.resolvconf.called)
+        self.assertEqual(1, self.wallet_ctx.config.call_count)
+        self.assertEqual(1, self.wallet_ctx.add_ta.call_count)
+        self.assertFalse(self.wallet_ctx.add_ta_file.called)
+
     def test_go_right_cname_rr(self):
 
         ret_val = self.nc_resolver.resolve('_wallet.wallet.testdomain.bit', 'CNAME')
